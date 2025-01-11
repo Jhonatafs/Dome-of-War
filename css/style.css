@@ -196,6 +196,7 @@ header {
   justify-content: center;
   align-items: center;
   height: 99dvh;
+  overflow: hidden;
 }
 
 #banner img{
@@ -245,10 +246,11 @@ header {
   /*transform: rotate(90deg);*/
   writing-mode: vertical-lr;
   white-space: nowrap;
-  font-size: large;
+  font-size: x-large;
   text-align: center;
+  font-weight: 700;
   color: #FFF;
-  padding: .5rem;
+  padding: 1rem .5rem;
   height: max-content;
   background-color: #3C4244;
   border-radius: 2px 0 0 2px;
