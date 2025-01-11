@@ -6,6 +6,15 @@
   src: url("/font/Evil\ Empire.otf");
 }
 
+:root {
+  --background: #f3f3f3;
+  --foreground: #c9c9c9;
+  --text: #000000;
+  --text-r: #ffffff;
+  --link: #6b2f2f;
+  --disabled: #777777;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -19,12 +28,20 @@ html {
 
 body {
   max-width: 100dvw !important;
-  color: #000;
-  background-color: #ffffff;
+  color: var(--text);
+  background-color: var(--background);
 }
 
 .brand {
   font-family: 'Evil Empire';
+}
+
+p {
+  line-height: 140%;
+}
+
+a {
+  color: var(--link);
 }
 
 /* NavBar
@@ -33,7 +50,7 @@ header {
   position: fixed;
   z-index: 1;
   width: 100dvw;
-  background-color: #ffffff;
+  background-color: var(--background);
   left: 0;
   top: 0;
   min-height: 40px;
@@ -62,7 +79,7 @@ header {
 #menu {
   display: none;
   position: fixed;
-  background-color: #ffffff;
+  background-color: var(--background);
   z-index: 1;
   left: 0;
 
@@ -86,7 +103,7 @@ header {
 /*#header a {
   text-decoration: none;
   padding: 1.5rem 0.2rem;
-  color: #000;
+  color: var(--text); 
   display: inline-block;
   border-bottom: 3px solid transparent;
   transition: all .4s ease-in-out;
@@ -98,7 +115,7 @@ header {
 }*/
 
 #header h1 a {
-  color: #000;
+  color: var(--text); 
 }
 
 /* Slider
@@ -128,14 +145,14 @@ header {
   display: none;
   width: 30px;
   height: 17px;
-  border: 2px solid #BF3636;
+  border: 2px solid var(--link);
   cursor: pointer;
   border-radius: 10px;
   transition: .4s;
 }
 
 #slider .navbar label:hover {
-  background-color: #ffffff;
+  background-color: var(--background);
 }
 
 #slider .slides {
@@ -191,7 +208,7 @@ header {
   justify-content: center;
   align-items: center;
   width: 500px;
-  border: 2px solid #fff;
+  border: 2px solid var(--background);
   cursor: pointer;
 }
 
@@ -223,7 +240,7 @@ header {
 article {
   margin: 70px auto 0;
   width: 100%;
-  color: #000;
+  color: var(--text); 
   padding: 3rem 0;
   margin: auto;
 }
@@ -257,20 +274,23 @@ article section {
 #sign-up,
 #buttons a {
   display: inline-block;
-  border: 2px solid #000;
+  border: 2px solid var(--text);
   text-align: center;
   letter-spacing: 1px;
   text-transform: uppercase;
+  font-weight: 700;
   line-height: 1.5;
   padding: .7rem 1.7rem;
   border-radius: .25rem;
   width: 100%;
+  color: var(--link);
 }
 
 #sign-up:hover,
 #buttons a:hover {
-  background-color: #000;
-  color: #fff;
+  background-color: var(--link);
+  color: var(--background);
+  border-color: var(--link);
 }
 
 #sign-up {
@@ -294,7 +314,8 @@ article section {
 }
 
 #more-information {
-  background-color: #ebebeb;
+  background-color: var(--foreground);
+  color: var(--text);
   max-width: 100%;
   margin: 0;
   padding: 1rem 2dvw;
@@ -339,7 +360,7 @@ footer #jhonfs {
   #menu a {
   text-decoration: none;
   padding: 0.5rem 0;
-  color: #000;
+  color: var(--text); 
   display: block;
   text-align: center;
   transition: all .4s ease-in-out;
@@ -349,4 +370,10 @@ footer #jhonfs {
     color: #BF3636;
     padding-left: 0.5rem;
   }
+
+  #sign-up,
+  #buttons {
+    width: 80dvw !important;
+  }
+
 }
