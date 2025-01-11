@@ -246,7 +246,7 @@ header {
   /*transform: rotate(90deg);*/
   writing-mode: vertical-lr;
   white-space: nowrap;
-  font-size: x-large;
+  font-size: medium;
   text-align: center;
   font-weight: 700;
   color: #FFF;
