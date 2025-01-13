@@ -297,6 +297,21 @@ footer {
   color: var(--background);
 }
 
+footer #jhonfs {
+  color: var(--background);
+  border: 1px solid var(--background);
+  border-radius: 10px;
+  box-shadow: -2px 2px 0px #0000006b;
+  padding: .1rem 1rem;
+  font-size: 80%;
+  transition: all .3s ease-in-out;
+}
+
+footer #jhonfs:hover {
+  box-shadow: 0px 0px 0px #0000006b;
+  border-color: transparent;
+}
+
 @media screen and (max-width: 800px) {
 
   #events .edition{
