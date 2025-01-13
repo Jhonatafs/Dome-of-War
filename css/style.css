@@ -239,6 +239,7 @@ article h1 {
   width: calc(33dvw - 3.4rem);
 }
 
+#bracket .buttons a,
 #main-information #location #button-map,
 #event-information .sign-up,
 #main-information #buttons a {
@@ -255,6 +256,7 @@ article h1 {
   color: var(--link);
 }
 
+#bracket .buttons a:hover,
 #main-information #location #button-map:hover,
 #event-information .sign-up:hover,
 #main-information #buttons a:hover {
@@ -285,6 +287,12 @@ article h1 {
   max-width: 46vw;
   padding-bottom: .5rem;
   border-bottom: 1px solid #00000060;
+}
+
+#bracket .buttons {
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
 }
 
 /*[ Footer ]*/
