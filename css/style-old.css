@@ -1,0 +1,408 @@
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+
+@font-face {
+  font-family: "Evil Empire";
+  src: url("/font/Evil\ Empire.otf");
+}
+
+:root {
+  --background: #fff;
+  --foreground: #c9c9c9;
+  --text: #000000;
+  --text-r: #ffffff;
+  --link: #6b2f2f;
+  --disabled: #777777;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "PT Sans", serif;
+  text-decoration: none;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  color: var(--text);
+  background-color: var(--background);
+}
+
+.brand {
+  font-family: 'Evil Empire';
+}
+
+p {
+  line-height: 140%;
+}
+
+a {
+  color: var(--link);
+}
+
+/* NavBar
+**********/
+header {
+  position: fixed;
+  z-index: 1;
+  width: 100vw;
+  background-color: var(--background);
+  left: 0;
+  top: 0;
+  min-height: 50px;
+  max-height: 50px;
+  box-shadow: -2px 0 5px #000;
+}
+
+#header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 7px 2rem 0 2rem;
+  margin: auto;
+  height: max-content;
+}
+
+#header .brand {
+  font-size: 2.2rem;
+}
+
+#burguer {
+  display: none;
+  cursor: pointer;
+}
+
+#menu {
+  display: none;
+  position: fixed;
+  background-color: var(--background);
+  z-index: 1;
+  left: 0;
+
+}
+
+#header h1 {
+  margin: 0;
+  padding: 0;
+}
+
+#header ul {
+  display: flex;
+  gap: 0.5rem;
+}
+
+#header li,
+#menu li {
+  list-style: none;
+}
+
+/*#header a {
+  text-decoration: none;
+  padding: 1.5rem 0.2rem;
+  color: var(--text); 
+  display: inline-block;
+  border-bottom: 3px solid transparent;
+  transition: all .4s ease-in-out;
+}
+
+#header a:hover {
+  border-bottom: 3px solid #3876c7;
+  color: #BF3636;
+}*/
+
+#header h1 a {
+  color: var(--text); 
+}
+
+/* Slider
+*********/
+#slider {
+  margin-top: 50px;
+  position: relative;
+  max-width: 100vw;
+  width: 100vw;
+  height: max-content;
+  overflow: hidden;
+}
+
+#slider input {
+  display: none;
+}
+
+#slider .navbar {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%);
+  display: flex;
+  gap: 0.5rem;
+}
+
+#slider .navbar label {
+  display: none;
+  width: 30px;
+  height: 17px;
+  border: 2px solid var(--link);
+  cursor: pointer;
+  border-radius: 10px;
+  transition: .4s;
+}
+
+#slider .navbar label:hover {
+  background-color: var(--background);
+}
+
+#slider .slides {
+  display: flex;
+  width: 400%;
+  max-height: 90vh;
+}
+
+#slider .slide {
+  width: 25%;
+  transition: .6s;
+}
+
+#slider img {
+  height: 100%;
+  object-fit: cover;
+  background-size: cover;
+}
+
+#slide1:checked ~ .s1 {
+  margin-left: 0;
+}
+
+#slide2:checked ~ .s1 {
+  margin-left: -25%;
+}
+
+#slide3:checked ~ .s1 {
+  margin-left: -50%;
+}
+
+#slide4:checked ~ .s1 {
+  margin-left: -75%;
+}
+
+/* Banner
+**********/
+#banner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 99dvh;
+  overflow: hidden;
+}
+
+#banner img{
+  height: 100dvh !important;
+}
+
+/* Events
+**********/
+#events {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  margin: 0;
+  max-width: 100vw;
+  width: 100vw;
+}
+
+#events .banners {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+  gap: 5vw;
+}
+
+#events .edition {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+  height: 42vw !important;
+  cursor: pointer;
+}
+
+#events .edition img {
+  display: block;
+  max-height: 100%;
+  object-fit: cover;
+  padding: 0;
+  margin: 0;
+}
+
+#events .edition .date {
+  /*transform: rotate(90deg);*/
+  writing-mode: vertical-lr;
+  white-space: nowrap;
+  font-size: 1rem;
+  text-align: center;
+  font-weight: 700;
+  color: #FFF;
+  padding: 0 .3rem;
+  height: 100%;
+  background-color: #3C4244;
+  border-radius: 2px 0 0 2px;
+}
+
+#events .edition .inscription {
+  font-size: 1.3rem;
+}
+
+/* article
+*********/
+article {
+  margin: 70px auto 0;
+  width: 100%;
+  color: var(--text); 
+  padding: 3rem 0;
+  margin: auto;
+}
+
+article h1{
+  font-size: 2.3rem;
+}
+
+article section {
+  padding: 1rem 2vw;
+  max-width: 100% !important;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#main-information {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+#buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: .6rem;
+  width: 15vw;
+}
+
+#sign-up,
+#buttons a {
+  display: inline-block;
+  border: 2px solid var(--text);
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+  line-height: 1.5;
+  padding: .7rem 1.7rem;
+  border-radius: .25rem;
+  width: 100%;
+  color: var(--link);
+}
+
+#sign-up:hover,
+#buttons a:hover {
+  background-color: var(--link);
+  color: var(--background);
+  border-color: var(--link);
+}
+
+#sign-up {
+  display: block;
+  width: 20vw;
+  margin: auto;
+  margin-top: 2rem;
+}
+
+#warnings {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+#warnings .notice {
+  width: 46vw;
+  max-width: 46vw;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid #00000060;
+}
+
+#more-information {
+  background-color: var(--foreground);
+  color: var(--text);
+  max-width: 100%;
+  margin: 0;
+  padding: 1rem 2vw;
+}
+
+#map {
+  padding: 0;
+  margin: 0;
+}
+
+/* footer
+*********/
+footer {
+  max-width: 100vw;
+  padding: 1rem 0;
+  background-color: #0e0e0e;
+  text-align: center;
+  color: #FFF;
+}
+
+footer #jhonfs {
+  color: #e15e53;
+}
+
+/* Mobile
+*********/
+@media screen and (max-width: 800px) {
+
+  #burguer {
+    display: inline-block;
+    padding: 1rem 0.5rem;
+  }
+
+  #header nav {
+    display: none;
+  }
+
+  #menu {
+    width: 100vw;
+  }
+
+  #menu a {
+  text-decoration: none;
+  padding: 0.5rem 0;
+  color: var(--text); 
+  display: block;
+  text-align: center;
+  transition: all .4s ease-in-out;
+  }
+
+  #menu a:hover {
+    color: #BF3636;
+    padding-left: 0.5rem;
+  }
+
+  #sign-up,
+  #buttons {
+    width: 80vw !important;
+  }
+}
