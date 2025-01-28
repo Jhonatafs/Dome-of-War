@@ -15,7 +15,7 @@
 }
 
 ::-webkit-scrollbar {
-  background-color: var(--link);
+  background-color: transparent;
   width: 9px;
 }
 
@@ -24,7 +24,7 @@
   border: 2px solid var(--link);
 }
 
-::-webkit-scrollbar-thumb:hover {
+::-webkit-scrol'lbar-thumb:hover {
   background-color: transparent;
 }
 
