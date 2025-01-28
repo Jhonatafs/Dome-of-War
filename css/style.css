@@ -15,7 +15,7 @@
 }
 
 ::-webkit-scrollbar {
-  background-color: transparent;
+  background-color: var(--link);
   width: 9px;
 }
 
