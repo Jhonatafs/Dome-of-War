@@ -351,4 +351,13 @@ footer #jhonfs:hover {
   #main-information #buttons {
     width: calc(100%);
   }
+
+  #event-information #warnings {
+    flex-direction: column;
+  }
+
+  #event-information #warnings .notice {
+    width: 100%;
+    max-width: 100%;
+  }
 }
