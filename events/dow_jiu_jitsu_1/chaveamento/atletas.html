@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dome of War - Atletas Inscritos</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+      }
+
+      .header {
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .header h1 {
+        color: #333;
+        margin-bottom: 10px;
+      }
+
+      .filters {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 20px;
+        padding: 15px;
+        background: #f8f8f8;
+        border-radius: 8px;
+      }
+
+      input,
+      select {
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        flex: 1;
+      }
+
+      .search-box {
+        flex: 2;
+        min-width: 200px;
+      }
+
+      .table-container {
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #2c3e50;
+        color: white;
+      }
+
+      tr:hover {
+        background-color: #f5f5f5;
+      }
+
+      .status {
+        padding: 4px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .status-confirmed {
+        background-color: #e6ffe6;
+        color: #008000;
+      }
+
+      .status-pending {
+        background-color: #fff0e6;
+        color: #cc5500;
+      }
+
+      .category-badge {
+        background-color: #e2e8f0;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 12px;
+      }
+
+      .age-group {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f8f9fa;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>Dome of War Jiu-Jitsu</h1>
+        <p>Lista de Atletas Inscritos</p>
+      </div>
+
+      <div class="filters">
+        <div class="search-box">
+          <input
+            type="text"
+            id="search"
+            placeholder="Buscar por nome ou equipe..."
+          />
+        </div>
+        <select id="keyFilter">
+          <option value="">Idade</option>
+          <option value="Pré Mirim">Pré Mirim (4-5)</option>
+          <option value="Mirim A">Mirim A (6-7)</option>
+          <option value="Mirim B">Mirim B (8-9)</option>
+          <option value="Infantil A">Infantil A (10-11)</option>
+          <option value="Infantil B">Infantil B (12-13)</option>
+          <option value="Infanto Juvenil">Infanto Juvenil (14-15)</option>
+          <option value="Juvenil">Juvenil (16-17)</option>
+          <option value="Adulto">Adulto (18-29)</option>
+          <option value="Master 1">Master 1 (30-35)</option>
+          <option value="Master 2">Master 2 (36-40)</option>
+          <option value="Master 3">Master 3 (41-45)</option>
+          <option value="Master 4">Master 4 (46-50)</option>
+          <option value="Master 5">Master 5 (51-55)</option>
+          <option value="Master 6">Master 6 (+55)</option>
+        </select>
+        <select id="beltFilter">
+          <option value="">Faixa</option>
+          <option value="Branca">Branca</option>
+          <option value="Azul">Azul</option>
+          <option value="Roxa">Roxa</option>
+          <option value="Marrom">Marrom</option>
+          <option value="Preta">Preta</option>
+          <option value="Coral">Coral</option>
+        </select>
+        <select id="categoryFilter">
+          <option value="">Categoria</option>
+          <option value="GALO">Galo</option>
+          <option value="PLUMA">Pluma</option>
+          <option value="PENA">Pena</option>
+          <option value="LEVE">Leve</option>
+          <option value="MÉDIO">Médio</option>
+          <option value="MEIO-PESADO">Meio-Pesado</option>
+          <option value="PESADO">Pesado</option>
+          <option value="SUPER PESADO">Super Pesado</option>
+          <option value="PESADÍSSIMO">Pesadíssimo</option>
+          <option value="SUPER PESADÍSSIMO">Super Pesadíssimo</option>
+        </select>
+        <select id="genderFilter">
+          <option value="">Sexo</option>
+          <option value="Masculino">Masculino</option>
+          <option value="Feminino">Feminino</option>
+        </select>
+        <select id="absoluteFilter">
+          <option value="">Absoluto</option>
+          <option value="Sim">Apenas Absoluto</option>
+          <option value="Não">Sem Absoluto</option>
+        </select>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Equipe</th>
+              <th>Faixa</th>
+              <th>Categoria</th>
+              <th>Sexo</th>
+              <th>Absoluto</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="athletesTable">
+            <tr>
+              <td colspan="7" style="text-align: center">Carregando...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script>
+      const GOOGLE_SHEET_CSV_URL =
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vQGkceBQyWRfzzlCOB4fdC9AtI5qKCT8CJFMlX81t8GuUObzE0KAA3aZvfGPdkL9i_uTpmHE-Nuqd84/pub?gid=396513377&single=true&output=csv";
+
+      let athletes = [];
+
+      // Normaliza as faixas consideradas branca
+      function normalizeBelt(belt) {
+        const whiteBelts = ["Verde", "Laranja", "Cinza", "Amarela"];
+        return whiteBelts.includes(belt) ? "Branca" : belt;
+      }
+
+      // Calcula a idade baseado no ano de nascimento
+      function calculateAge(birthYear) {
+        const currentYear = new Date().getFullYear();
+        return currentYear - parseInt(birthYear);
+      }
+
+      // Determina se é master baseado na idade
+      function isMaster(birthYear) {
+        return calculateAge(birthYear) >= 40;
+      }
+
+      async function fetchAthletes() {
+        try {
+          const response = await fetch(GOOGLE_SHEET_CSV_URL);
+          const csvText = await response.text();
+
+          // Processar CSV
+          const rows = csvText.split("\n");
+          athletes = rows.slice(1).map((row) => {
+            const cols = row.split(",");
+
+            return {
+              timestamp: cols[0]?.trim(),
+              name: cols[1]?.trim(),
+              birthYear: cols[2]?.trim(),
+              contact: cols[3]?.trim(),
+              team: cols[4]?.trim(),
+              gender: cols[5]?.trim(),
+              belt: normalizeBelt(cols[6]?.trim()),
+              category: cols[7]?.trim(),
+              absolute: cols[8]?.trim() || "Não",
+              paymentId: cols[9]?.trim(),
+              paymentConfirmed: cols[10]?.trim() === "OK" ? "Sim" : "Não",
+            };
+          });
+
+          filterAndRenderAthletes();
+        } catch (error) {
+          console.error("Erro:", error);
+          document.getElementById("athletesTable").innerHTML = `
+            <tr>
+              <td colspan="7" style="color: red; text-align: center;">
+                Erro ao carregar atletas. Tente novamente mais tarde.
+              </td>
+            </tr>`;
+        }
+      }
+
+      function filterAndRenderAthletes() {
+        const search = document.getElementById("search").value.toLowerCase();
+        const keyFilter = document.getElementById("keyFilter").value;
+        const beltFilter = document.getElementById("beltFilter").value;
+        const categoryFilter = document.getElementById("categoryFilter").value;
+        const genderFilter = document.getElementById("genderFilter").value;
+        const absoluteFilter = document.getElementById("absoluteFilter").value;
+
+        const ageGroups = {
+          "Pré Mirim": [4, 5],
+          "Mirim A": [6, 7],
+          "Mirim B": [8, 9],
+          "Infantil A": [10, 11],
+          "Infantil B": [12, 13],
+          "Infanto Juvenil": [14, 15],
+          "Juvenil": [16, 17],
+          "Adulto": [18, 29],
+          "Master 1": [30, 35],
+          "Master 2": [36, 40],
+          "Master 3": [41, 45],
+          "Master 4": [46, 50],
+          "Master 5": [51, 55],
+          "Master 6": [56, 120],
+        };
+
+        const filtered = athletes.filter((athlete) => {
+          const age = calculateAge(athlete.birthYear);
+          const matchesKey =
+            !keyFilter ||
+            (ageGroups[keyFilter] &&
+              age >= ageGroups[keyFilter][0] &&
+              age <= ageGroups[keyFilter][1]);
+          const matchesSearch =
+            athlete.name.toLowerCase().includes(search) ||
+            athlete.team.toLowerCase().includes(search);
+          const matchesBelt = !beltFilter || athlete.belt === beltFilter;
+          const matchesCategory =
+            !categoryFilter || athlete.category === categoryFilter;
+          const matchesGender =
+            !genderFilter || athlete.gender === genderFilter;
+          const matchesAbsolute =
+            !absoluteFilter || athlete.absolute === absoluteFilter;
+
+          return (
+            matchesKey &&
+            matchesSearch &&
+            matchesBelt &&
+            matchesCategory &&
+            matchesGender &&
+            matchesAbsolute
+          );
+        });
+
+        renderAthletes(filtered);
+      }
+
+      function renderAthletes(filteredAthletes) {
+        const table = document.getElementById("athletesTable");
+
+        if (filteredAthletes.length === 0) {
+          table.innerHTML = `
+            <tr>
+              <td colspan="7" style="text-align: center;">
+                Nenhum atleta encontrado
+              </td>
+            </tr>`;
+          return;
+        }
+
+        table.innerHTML = filteredAthletes
+          .map(
+            (athlete) => `
+              <tr>
+                <td>${athlete.name}</td>
+                <td>${athlete.team}</td>
+                <td>${athlete.belt}</td>
+                <td>${athlete.category}</td>
+                <td>${athlete.gender}</td>
+                <td>${athlete.absolute}</td>
+                <td>
+                  <span class="status ${
+                    athlete.paymentConfirmed === "Sim"
+                      ? "status-confirmed"
+                      : "status-pending"
+                  }">
+                    ${
+                      athlete.paymentConfirmed === "Sim"
+                        ? "Confirmado"
+                        : "Pendente"
+                    }
+                  </span>
+                </td>
+              </tr>`
+          )
+          .join("");
+      }
+
+      // Event listeners
+      document
+        .getElementById("search")
+        .addEventListener("input", filterAndRenderAthletes);
+      document
+        .getElementById("keyFilter")
+        .addEventListener("change", filterAndRenderAthletes);
+      document
+        .getElementById("beltFilter")
+        .addEventListener("change", filterAndRenderAthletes);
+      document
+        .getElementById("categoryFilter")
+        .addEventListener("change", filterAndRenderAthletes);
+      document
+        .getElementById("genderFilter")
+        .addEventListener("change", filterAndRenderAthletes);
+      document
+        .getElementById("absoluteFilter")
+        .addEventListener("change", filterAndRenderAthletes);
+
+      // Inicialização
+      fetchAthletes();
+      // Atualiza a cada 30 segundos
+      setInterval(fetchAthletes, 30000);
+    </script>
+  </body>
+</html>
