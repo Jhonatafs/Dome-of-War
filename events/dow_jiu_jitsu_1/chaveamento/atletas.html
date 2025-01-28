@@ -235,13 +235,13 @@
         <table>
           <thead>
             <tr>
+              <th>Status</th>
               <th>Nome</th>
               <th>Equipe</th>
               <th>Faixa</th>
               <th>Categoria</th>
               <th>Sexo</th>
               <th>Absoluto</th>
-              <th>Status</th>
             </tr>
           </thead>
           <tbody id="athletesTable">
@@ -386,12 +386,6 @@
           .map(
             (athlete) => `
               <tr>
-                <td>${athlete.name}</td>
-                <td>${athlete.team}</td>
-                <td>${athlete.belt}</td>
-                <td>${athlete.category}</td>
-                <td>${athlete.gender}</td>
-                <td>${athlete.absolute}</td>
                 <td>
                   <span class="status ${
                     athlete.paymentConfirmed === "Sim"
@@ -405,6 +399,13 @@
                     }
                   </span>
                 </td>
+                <td>${athlete.name}</td>
+                <td>${athlete.team}</td>
+                <td>${athlete.belt}</td>
+                <td>${athlete.category}</td>
+                <td>${athlete.gender}</td>
+                <td>${athlete.absolute}</td>
+                
               </tr>`
           )
           .join("");
