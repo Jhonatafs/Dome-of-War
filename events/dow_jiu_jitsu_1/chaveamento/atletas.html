@@ -144,7 +144,9 @@
         <i id="burguer" class="fa-solid fa-bars" onclick="clickMenu()"></i>
         <nav>
           <ul>
-            <li><a href="/index.html"><i class="fa-solid fa-house"></i></a></li>
+            <li>
+              <a href="/index.html"><i class="fa-solid fa-house"></i></a>
+            </li>
             <li style="color: var(--text); opacity: 0.5">|</li>
             <li>
               <a href="https://www.instagram.com/dome_of_war/" target="_blank"
@@ -166,7 +168,7 @@
         <li><a href="#contact">Contato</a></li>
       </ul>
     </div>
-    <br>
+    <br />
     <div class="container">
       <div class="header">
         <h1>Lista de Atletas Inscritos</h1>
@@ -259,10 +261,17 @@
 
       let athletes = [];
 
-      // Normaliza as faixas consideradas branca
+      /* // Normaliza as faixas consideradas branca
       function normalizeBelt(belt) {
         const whiteBelts = ["Verde", "Laranja", "Cinza", "Amarela"];
         return whiteBelts.includes(belt) ? "Branca" : belt;
+      }*/
+      function normalizeBelt(belt) {
+        const whiteBelts = ["Verde", "Laranja", "Cinza", "Amarela"];
+        return {
+          display: belt, // Mantém o nome original para exibição
+          search: whiteBelts.includes(belt) ? "Branca" : belt, // Usa "Branca" para agrupamento na busca
+        };
       }
 
       // Calcula a idade baseado no ano de nascimento
@@ -285,6 +294,7 @@
           const rows = csvText.split("\n");
           athletes = rows.slice(1).map((row) => {
             const cols = row.split(",");
+            const beltObj = normalizeBelt(cols[6]?.trim());
 
             return {
               timestamp: cols[0]?.trim(),
@@ -293,7 +303,8 @@
               contact: cols[3]?.trim(),
               team: cols[4]?.trim(),
               gender: cols[5]?.trim(),
-              belt: normalizeBelt(cols[6]?.trim()),
+              beltDisplay: beltObj.display, // Exibir o nome original
+              beltSearch: beltObj.search, // Usar esse valor na busca
               category: cols[7]?.trim(),
               absolute: cols[8]?.trim() || "Não",
               paymentId: cols[9]?.trim(),
@@ -348,7 +359,7 @@
           const matchesSearch =
             athlete.name.toLowerCase().includes(search) ||
             athlete.team.toLowerCase().includes(search);
-          const matchesBelt = !beltFilter || athlete.belt === beltFilter;
+          const matchesBelt = !beltFilter || athlete.beltSearch === beltFilter;
           const matchesCategory =
             !categoryFilter || athlete.category === categoryFilter;
           const matchesGender =
@@ -401,7 +412,7 @@
                 </td>
                 <td>${athlete.name}</td>
                 <td>${athlete.team}</td>
-                <td>${athlete.belt}</td>
+                <td>${athlete.beltDisplay}</td>
                 <td>${athlete.category}</td>
                 <td>${athlete.gender}</td>
                 <td>${athlete.absolute}</td>
