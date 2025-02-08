@@ -1,0 +1,127 @@
+body {
+  font-family: sans-serif;
+  background-color: #f0f0f0;
+}
+
+main {
+  margin-top: 5rem !important;
+  margin: auto;
+  width: 96dvw;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#grupos {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  width: 90dvw;
+}
+
+.grupo {
+  border: 1px solid #ccc;
+  padding: 20px;
+  width: calc(90dvw - 40px);
+  background-color: #fff;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.grupo h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 5px;
+}
+
+.chave {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+  padding: 20px;
+}
+
+.rodada {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: relative;
+}
+
+.luta {
+  border: 1px solid #ccc;
+  padding: 10px;
+  background: white;
+  width: 200px;
+  margin: 10px 0;
+  position: relative;
+}
+
+.atleta {
+  margin-bottom: 5px;
+  padding: 5px;
+  border-bottom: 1px solid #eee;
+}
+
+.atleta:last-child {
+  border-bottom: none;
+}
+
+.nome {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.equipe {
+  font-size: 12px;
+  color: #666;
+}
+
+.bye {
+  opacity: 0.5;
+}
+
+/* Linhas conectoras entre as lutas */
+.rodada:not(:last-child) .luta::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  top: 50%;
+  width: 40px;
+  height: 2px;
+  background-color: #ccc;
+}
+
+.rodada:not(:first-child) .luta::before {
+  content: "";
+  position: absolute;
+  left: -40px;
+  top: 50%;
+  width: 40px;
+  height: 2px;
+  background-color: #ccc;
+}
+
+/* Ajuste do espaçamento vertical entre lutas para cada rodada */
+.rodada:nth-child(1) {
+  margin-top: 0;
+}
+
+.rodada:nth-child(2) .luta {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.rodada:nth-child(3) .luta {
+  margin-top: 70px;
+  margin-bottom: 70px;
+}
+
+.rodada:nth-child(4) .luta {
+  margin-top: 150px;
+  margin-bottom: 150px;
+}
