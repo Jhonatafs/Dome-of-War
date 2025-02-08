@@ -294,15 +294,15 @@
           const rows = csvText.split("\n");
           athletes = rows.slice(1).map((row) => {
             const cols = row.split(",");
-            const beltObj = normalizeBelt(cols[7]?.trim());
+            const beltObj = normalizeBelt(cols[6]?.trim());
 
             return {
               timestamp: cols[0]?.trim(),
-              name: cols[1]?.trim(),
-              team: cols[2]?.trim(),
-              birthYear: cols[3]?.trim(),
-              contact: cols[5]?.trim(),
-              gender: cols[6]?.trim(),
+              name: cols[3]?.trim(),
+              team: cols[4]?.trim(),
+              birthYear: cols[2]?.trim(),
+              contact: cols[1]?.trim(),
+              gender: cols[5]?.trim(),
               beltDisplay: beltObj.display, // Exibir o nome original
               beltSearch: beltObj.search, // Usar esse valor na busca
               category: cols[8]?.trim(),
