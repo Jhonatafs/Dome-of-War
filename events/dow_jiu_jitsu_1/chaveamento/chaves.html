@@ -1,67 +1,185 @@
 <!DOCTYPE html>
 <html>
-<head>
-<title>Grupos de Atletas</title>
-</head>
-<body>
-  <h1>Grupos de Atletas</h1>
-  <div id="grupos"></div>
-
-  <script>
-fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vQGkceBQyWRfzzlCOB4fdC9AtI5qKCT8CJFMlX81t8GuUObzE0KAA3aZvfGPdkL9i_uTpmHE-Nuqd84/pub?gid=396513377&single=true&output=csv')
-  .then(response => {
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return response.text();
-  })
-  .then(csvData => {
-    const atletas = csvData.split('\n').slice(1).map(row => {
-      const cols = row.split(",");
-      return {
-        idade: cols[0]?.trim() || "Não informado",
-        peso: cols[1]?.trim() || "Não informado",
-        faixa: cols[2]?.trim() || "Não informado",
-        sexo: cols[3]?.trim() || "Não informado",
-        categoria: cols[4]?.trim() || "Não informado",
-        absoluto: cols[5]?.trim() || "Não informado",
-        paymentConfirmed: cols[6]?.trim() === "OK" ? "Sim" : "Não",
-      };
-    }).filter(atleta => atleta.idade !== "Não informado");
-
-    const grupos = {};
-
-    atletas.forEach(atleta => {
-      const grupo = `${atleta.sexo}, ${atleta.faixa}, ${atleta.idade}, ${atleta.categoria}`; // Define a chave do grupo
-      if (!grupos[grupo]) {
-        grupos[grupo] = [];
+  <head>
+    <title>Grupos de Atletas</title>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 20px;
+        background-color: #f0f0f0;
       }
-      grupos[grupo].push(atleta);
-    });
 
-    const gruposDiv = document.getElementById('grupos');
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
 
-    for (const grupo in grupos) {
-      const grupoDiv = document.createElement('div');
-      grupoDiv.innerHTML = `<h2>#${grupo}</h2>`; // Adiciona # antes do nome do grupo
+      #grupos {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-gap: 20px;
+      }
 
-      const listaAtletas = document.createElement('ul');
-      grupos[grupo].forEach(atleta => {
-        const itemAtleta = document.createElement('li');
-        itemAtleta.textContent = `${atleta.peso} - ${atleta.absoluto} - Pagamento: ${atleta.paymentConfirmed}`;
-        listaAtletas.appendChild(itemAtleta);
-      });
+      .grupo {
+        border: 1px solid #ccc;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+      }
 
-      grupoDiv.appendChild(listaAtletas);
-      gruposDiv.appendChild(grupoDiv);
-    }
+      .grupo h2 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 5px;
+      }
 
-  })
-  .catch(error => {
-    console.error('Erro ao carregar dados:', error);
-    const gruposDiv = document.getElementById('grupos');
-    gruposDiv.innerHTML = "<p>Erro ao carregar os dados. Verifique o console para mais detalhes.</p>";
-  });
-  </script>
-</body>
+      .grupo ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      .grupo li {
+        margin-bottom: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Grupos de Atletas</h1>
+    <div id="grupos"></div>
+
+    <script>
+      fetch(
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vQGkceBQyWRfzzlCOB4fdC9AtI5qKCT8CJFMlX81t8GuUObzE0KAA3aZvfGPdkL9i_uTpmHE-Nuqd84/pub?gid=387003481&single=true&output=csv"
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.text();
+        })
+        .then((csvData) => {
+          const atletas = csvData
+            .split("\n")
+            .slice(1)
+            .map((row) => {
+              const cols = row.split(",");
+              return {
+                nome: cols[0]?.trim() || "Não informado",
+                equipe: cols[1]?.trim() || "Não informado",
+                sexo: cols[2]?.trim() || "Não informado",
+                faixa: cols[3]?.trim() || "Não informado",
+                idade: cols[4]?.trim() || "Não informado",
+                peso: cols[5]?.trim() || "Não informado",
+                absoluto: cols[6]?.trim() || "Não informado",
+                l1: cols[7]?.trim() || "Não informado",
+                l2: cols[8]?.trim() || "Não informado",
+                l3: cols[9]?.trim() || "Não informado",
+                l4: cols[10]?.trim() || "Não informado",
+                l5: cols[11]?.trim() || "Não informado",
+                l6: cols[12]?.trim() || "Não informado",
+                l7: cols[13]?.trim() || "Não informado",
+                l8: cols[14]?.trim() || "Não informado",
+                l9: cols[15]?.trim() || "Não informado",
+              };
+            });
+
+          const grupos = {};
+
+          atletas.forEach((atleta) => {
+            const chave = `${atleta.sexo}-${atleta.idade}-${atleta.faixa}-${atleta.peso}`;
+            if (!grupos[chave]) {
+              grupos[chave] = [];
+            }
+            grupos[chave].push(atleta);
+          });
+
+          const gruposDiv = document.getElementById("grupos");
+
+          for (const chave in grupos) {
+            const grupoDiv = document.createElement("div");
+            grupoDiv.innerHTML = `<h2>${chave}</h2>`;
+
+            const listaLutas = document.createElement("ul");
+            const atletasGrupo = grupos[chave];
+            const numAtletas = atletasGrupo.length;
+
+            const lutas = [];
+            const atletasUsados = new Set(); // Rastrear atletas usados em todas as rodadas
+
+            // Estrutura as lutas
+            if (numAtletas === 1) {
+              // 1 atleta: Vencedor direto
+              const vencedor = document.createElement("li");
+              vencedor.textContent = `${atletasGrupo[0].nome} - Vencedor`;
+              listaLutas.appendChild(vencedor);
+            } else if (numAtletas === 2) {
+              // 2 atletas: Final
+              const final = document.createElement("li");
+              final.textContent = `${atletasGrupo[0].nome} (${atletasGrupo[0].equipe}) vs ${atletasGrupo[1].nome} (${atletasGrupo[1].equipe}) (Final)`;
+              listaLutas.appendChild(final);
+            } else if (numAtletas === 3) {
+              // 3 atletas: Chave de 3
+              const luta1 = document.createElement("li");
+              luta1.textContent = `${atletasGrupo[0].nome} (${atletasGrupo[0].equipe}) vs ${atletasGrupo[1].nome} (${atletasGrupo[1].equipe})`;
+              const luta2 = document.createElement("li");
+              luta2.textContent = `${atletasGrupo[2].nome} (${atletasGrupo[2].equipe}) vs (Perdedor da Luta 1)`;
+              const final = document.createElement("li");
+              final.textContent = `(Vencedor da Luta 1) vs (Vencedor da Luta 2) (Final)`;
+              listaLutas.appendChild(luta1);
+              listaLutas.appendChild(luta2);
+              listaLutas.appendChild(final);
+            } else if (numAtletas > 3) {
+              // Mais de 3 atletas: Lutas simples
+              const rodadas = Math.ceil(numAtletas / 2);
+              const atletasDiferentes = atletasGrupo.filter(
+                (atleta1) =>
+                  !atletasGrupo.some(
+                    (atleta2) => atleta1.equipe !== atleta2.equipe
+                  )
+              );
+              const atletasIguais = atletasGrupo.filter(
+                (atleta1) =>
+                  !atletasGrupo.some(
+                    (atleta2) => atleta1.equipe === atleta2.equipe
+                  )
+              );
+
+              const lutas = [];
+              while (atletasDiferentes.length > 1) {
+                lutas.push([
+                  atletasDiferentes.shift(),
+                  atletasDiferentes.shift(),
+                ]);
+              }
+
+              while (atletasIguais.length > 1) {
+                lutas.push([atletasIguais.shift(), atletasIguais.shift()]);
+              }
+
+              if (atletasDiferentes.length > 0) {
+                lutas.push([atletasDiferentes.shift(), atletasIguais.shift()]);
+              }
+
+              lutas.forEach((luta) => {
+                const lutaElement = document.createElement("li");
+                lutaElement.textContent = `${luta[0].nome} (${
+                  luta[0].equipe
+                }) vs ${luta[1]?.nome || "N/A"} (${luta[1]?.equipe || "N/A"})`;
+                listaLutas.appendChild(lutaElement);
+              });
+            }
+
+            grupoDiv.appendChild(listaLutas);
+            gruposDiv.appendChild(grupoDiv);
+          }
+        })
+        .catch((error) => {
+          console.error("Erro ao carregar dados:", error);
+          const gruposDiv = document.getElementById("grupos");
+          gruposDiv.innerHTML =
+            "<p>Erro ao carregar os dados. Verifique o console para mais detalhes.</p>";
+        });
+    </script>
+  </body>
 </html>
