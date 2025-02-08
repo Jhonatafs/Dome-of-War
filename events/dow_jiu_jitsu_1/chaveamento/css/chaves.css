@@ -82,6 +82,7 @@ h1 {
 }
 
 .bye {
+    display: none;
   opacity: 0.5;
 }
 
