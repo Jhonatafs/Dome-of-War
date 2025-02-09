@@ -6,10 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/css/style.css" />
     <link rel="stylesheet" href="/css/normalize.css" />
-    <link
-      rel="stylesheet"
-      href="/events/dow_jiu_jitsu_1/chaveamento/css/chaves.css"
-    />
     <link rel="icon" type="image/x-icon" href="/img/fovicon.png" />
     <script src="/js/script.js"></script>
     <script
@@ -17,54 +13,348 @@
       crossorigin="anonymous"
     ></script>
     <title>Dome Of War</title>
+
+    <style>
+      :root {
+        --background: #fff;
+        --foreground: #c9c9c9;
+        --text: #000000;
+        --text-r: #ffffff;
+        --link: #6b2f2f;
+        --disabled: #777777;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        background-color: var(--background);
+        color: var(--text);
+        min-height: 100vh;
+        padding: 2rem;
+      }
+
+      .container {
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 2rem;
+        color: var(--link);
+      }
+
+      .grupo {
+        background: #e7e7e7;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      }
+
+      .grupo-titulo {
+        color: var(--link);
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid #3a3a3a;
+      }
+
+      .chaveamento {
+        display: flex;
+        justify-content: space-between;
+        gap: 2rem;
+        position: relative;
+        overflow-x: auto;
+      }
+
+      .lado {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .centro {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-width: 200px;
+      }
+
+      .trofeu {
+        width: 110px;
+        height: 110px;
+        background: #ddbc00c7;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #1a1a1a;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+
+      .chave {
+        background: transparent;
+        border: 1px solid #000000;
+        border-radius: 6px;
+        padding: 0.75rem;
+        position: relative;
+      }
+
+      .atleta {
+        padding: 0.5rem;
+        border-bottom: 1px solid #4a4a4a;
+      }
+
+      .atleta:last-child {
+        border-bottom: none;
+      }
+
+      .atleta-nome {
+        font-weight: bold;
+        color: var(--text);
+      }
+
+      .atleta-equipe {
+        font-size: 0.875rem;
+        font-weight: bold;
+        color: var(--link);
+      }
+
+      .linha-conexao {
+        position: absolute;
+        border: 2px solid #4a4a4a;
+        width: 2rem;
+        right: -2rem;
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 1rem;
+        }
+
+        .chaveamento {
+          flex-direction: column;
+        }
+
+        .lado {
+          width: 100%;
+        }
+
+        .centro {
+          order: -1;
+          margin-bottom: 2rem;
+        }
+      }
+    </style>
   </head>
   <body>
-    <header>
-      <div id="header">
-        <h1 class="brand"><a href="/index.html">DOME OF WAR</a></h1>
-        <i id="burguer" class="fa-solid fa-bars" onclick="clickMenu()"></i>
-        <nav>
-          <ul>
-            <li>
-              <a href="/index.html"><i class="fa-solid fa-house"></i></a>
-            </li>
-            <li style="color: var(--text); opacity: 0.5">|</li>
-            <li>
-              <a href="https://www.instagram.com/dome_of_war/" target="_blank"
-                ><i class="fa-brands fa-instagram"></i
-              ></a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </header>
-
-    <div id="menu">
-      <ul>
-        <li>
-          <a href="https://www.instagram.com/dome_of_war/" target="_blank"
-            ><i class="fa-brands fa-instagram"></i
-          ></a>
-        </li>
-        <li><a href="#contact">Contato</a></li>
-      </ul>
-    </div>
-    <main>
-      <h1>Chaves Pré Oficial</h1>
-      <p>Chaves oficiais amanhã de manhã</p>
+    <div class="container">
+      <h1>Chaveamento do Torneio</h1>
       <div id="grupos"></div>
-    </main>
-    <script src="/events/dow_jiu_jitsu_1/chaveamento/js/chaves.js"></script>
-    <footer>
-      <p style="display: flex; align-items: center; justify-content: center">
-        <span class="brand" style="font-size: x-large">DOME OF WAR</span
-        >&nbsp;&nbsp;2023 - 2025 | Site criado por&nbsp;<a
-          id="jhonfs"
-          href="https://jhonfs.com/"
-          target="_blank"
-          >JhonFs</a
-        >
-      </p>
-    </footer>
+    </div>
+
+    <script>
+      function normalizarFaixa(faixa) {
+        const faixasIniciantes = [
+          "BRANCA",
+          "VERDE",
+          "CINZA",
+          "LARANJA",
+          "AMARELA",
+        ];
+        faixa = faixa.toUpperCase();
+        return faixasIniciantes.includes(faixa) ? "INICIANTE" : faixa;
+      }
+
+      function distribuirChaves(atletas) {
+    const chaves = [];
+    const usados = new Set();
+
+    // Ordena os atletas por equipe
+    atletas.sort((a, b) => a.equipe.localeCompare(b.equipe));
+
+    // Verifica se há número ímpar e identifica o atleta do meio
+    let atletaSozinho = null;
+    if (atletas.length % 2 !== 0) {
+        const meio = Math.floor(atletas.length / 2);
+        atletaSozinho = atletas.splice(meio, 1)[0];
+    }
+
+    while (atletas.length > 1) {
+        let atleta1 = atletas.shift(); // Primeiro atleta
+        let atleta2 = null;
+
+        // Busca um oponente de equipe diferente
+        for (let i = atletas.length - 1; i >= 0; i--) {
+            if (atletas[i].equipe !== atleta1.equipe) {
+                atleta2 = atletas.splice(i, 1)[0]; // Remove o atleta selecionado
+                break;
+            }
+        }
+
+        // Se não encontrou, pega o último atleta restante
+        if (!atleta2) {
+            atleta2 = atletas.pop();
+        }
+
+        chaves.push({ atleta1, atleta2 });
+    }
+
+    // Caso reste apenas um atleta
+    if (atletas.length === 1) {
+        chaves.push({ atleta1: atletas[0], atleta2: null });
+    }
+
+    // Se há apenas um atleta, ele deve ser o campeão automaticamente
+    if (chaves.length === 1 && chaves[0].atleta2 === null) {
+        return {
+            esquerda: chaves,
+            direita: [],
+        };
+    }
+
+    // Reposiciona o atleta sozinho para garantir que ele não fique isolado
+    if (atletaSozinho) {
+        const rodadaTemChaveComDoisAtletas = chaves.some(
+            (chave) => chave.atleta1 && chave.atleta2
+        );
+
+        if (rodadaTemChaveComDoisAtletas) {
+            const ultimaChaveComDoisAtletas = chaves.findIndex(
+                (chave) => chave.atleta1 && chave.atleta2
+            );
+
+            if (ultimaChaveComDoisAtletas !== -1) {
+                const chave = chaves.splice(ultimaChaveComDoisAtletas, 1)[0];
+                chaves.push({ atleta1: atletaSozinho, atleta2: null });
+                chaves.push(chave);
+            }
+        } else {
+            chaves.push({ atleta1: atletaSozinho, atleta2: null });
+        }
+    }
+
+    // Divide as chaves em dois lados
+    const meio = Math.ceil(chaves.length / 2);
+    return {
+        esquerda: chaves.slice(0, meio),
+        direita: chaves.slice(meio),
+    };
+}
+
+
+      function criarChave(atleta1, atleta2) {
+        const chave = document.createElement("div");
+        chave.className = "chave";
+
+        const atletaDiv1 = document.createElement("div");
+        atletaDiv1.className = "atleta";
+        atletaDiv1.innerHTML = `
+                <div class="atleta-nome">${atleta1?.nome || "BYE"}</div>
+                <div class="atleta-equipe">${atleta1?.equipe || "-"}</div>
+            `;
+
+        const atletaDiv2 = document.createElement("div");
+        atletaDiv2.className = "atleta";
+        atletaDiv2.innerHTML = `
+                <div class="atleta-nome">${atleta2?.nome || "BYE"}</div>
+                <div class="atleta-equipe">${atleta2?.equipe || "-"}</div>
+            `;
+
+        chave.appendChild(atletaDiv1);
+        chave.appendChild(atletaDiv2);
+
+        return chave;
+      }
+
+      function criarGrupo(atletas) {
+        const grupo = document.createElement("div");
+        grupo.className = "grupo";
+
+        const titulo = document.createElement("h2");
+        titulo.className = "grupo-titulo";
+        titulo.textContent = `${atletas[0].sexo} - ${atletas[0].idade} - ${atletas[0].faixa} - ${atletas[0].peso}`;
+        grupo.appendChild(titulo);
+
+        const chaveamento = document.createElement("div");
+        chaveamento.className = "chaveamento";
+
+        const distribuicao = distribuirChaves(atletas);
+
+        // Lado Esquerdo
+        const ladoEsquerdo = document.createElement("div");
+        ladoEsquerdo.className = "lado";
+        distribuicao.esquerda.forEach((chave) => {
+          ladoEsquerdo.appendChild(criarChave(chave.atleta1, chave.atleta2));
+        });
+        chaveamento.appendChild(ladoEsquerdo);
+
+        // Centro
+        const centro = document.createElement("div");
+        centro.className = "centro";
+        const trofeu = document.createElement("div");
+        trofeu.className = "trofeu";
+        trofeu.textContent = "VENCEDOR";
+        centro.appendChild(trofeu);
+        chaveamento.appendChild(centro);
+
+        // Lado Direito
+        const ladoDireito = document.createElement("div");
+        ladoDireito.className = "lado";
+        distribuicao.direita.forEach((chave) => {
+          ladoDireito.appendChild(criarChave(chave.atleta1, chave.atleta2));
+        });
+        chaveamento.appendChild(ladoDireito);
+
+        grupo.appendChild(chaveamento);
+        return grupo;
+      }
+
+      // Carregar dados da planilha CSV
+      fetch(
+        "https://docs.google.com/spreadsheets/d/e/2PACX-1vQGkceBQyWRfzzlCOB4fdC9AtI5qKCT8CJFMlX81t8GuUObzE0KAA3aZvfGPdkL9i_uTpmHE-Nuqd84/pub?gid=387003481&single=true&output=csv"
+      )
+        .then((response) => response.text())
+        .then((csvData) => {
+          const atletas = csvData
+            .split("\n")
+            .slice(1)
+            .map((row) => {
+              const cols = row.split(",");
+              return {
+                nome: cols[0]?.trim() || "Não informado",
+                equipe: cols[1]?.trim() || "Não informado",
+                sexo: (cols[2]?.trim() || "Não informado").toUpperCase(),
+                faixa: normalizarFaixa(cols[3]?.trim() || "Não informado"),
+                idade: (cols[4]?.trim() || "Não informado").toUpperCase(),
+                peso: cols[5]?.trim() || "Não informado",
+              };
+            });
+
+          const grupos = {};
+          atletas.forEach((atleta) => {
+            const chave = `${atleta.sexo} - ${atleta.idade} - ${atleta.faixa} - ${atleta.peso}`;
+            if (!grupos[chave]) grupos[chave] = [];
+            grupos[chave].push(atleta);
+          });
+
+          const gruposContainer = document.getElementById("grupos");
+          Object.entries(grupos).forEach(([chave, atletasGrupo]) => {
+            gruposContainer.appendChild(criarGrupo(atletasGrupo));
+          });
+        })
+        .catch((error) => {
+          console.error("Erro ao carregar dados:", error);
+          document.getElementById("grupos").innerHTML =
+            '<p class="error">Erro ao carregar os dados. Por favor, tente novamente mais tarde.</p>';
+        });
+    </script>
   </body>
 </html>
