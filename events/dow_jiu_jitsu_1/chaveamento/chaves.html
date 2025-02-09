@@ -320,8 +320,8 @@
       // Carregar dados da planilha CSV
       fetch(
         "https://docs.google.com/spreadsheets/d/e/2PACX-1vQGkceBQyWRfzzlCOB4fdC9AtI5qKCT8CJFMlX81t8GuUObzE0KAA3aZvfGPdkL9i_uTpmHE-Nuqd84/pub?gid=387003481&single=true&output=csv"
-      )
-        .then((response) => response.text())
+      ) // Abre uma requisição
+        .then((response) => response.text()) // Converte a resposta para texto
         .then((csvData) => {
           const atletas = csvData
             .split("\n")
